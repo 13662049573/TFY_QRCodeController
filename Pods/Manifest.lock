@@ -1,0 +1,32 @@
+PODS:
+  - TFY_AutoLayout (2.4.5)
+  - TFY_Category (2.2.6)
+  - TFY_Navigation (2.1.0)
+  - TFY_ProgressHUD (2.2.0)
+  - TFY_SimplifytableViewKit (2.1.4)
+
+DEPENDENCIES:
+  - TFY_AutoLayout
+  - TFY_Category
+  - TFY_Navigation
+  - TFY_ProgressHUD
+  - TFY_SimplifytableViewKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - TFY_AutoLayout
+    - TFY_Category
+    - TFY_Navigation
+    - TFY_ProgressHUD
+    - TFY_SimplifytableViewKit
+
+SPEC CHECKSUMS:
+  TFY_AutoLayout: 4fc4ce19410e40d77fcd66076ceb3600f34b3fc9
+  TFY_Category: fd7157177ebdca253058e1f1774791c8aa8f0dc0
+  TFY_Navigation: 7e6c6eeb8f318233bf88fab31181e5408e4c04fb
+  TFY_ProgressHUD: 543348e5fc1a835fb1d0450a0f0b6ac97dcbd788
+  TFY_SimplifytableViewKit: 6cb8041d11077228028f5440b6e79aa4714e1a53
+
+PODFILE CHECKSUM: 52c6e3c19d335584b1cabbb5dfcaadacef9d2c84
+
+COCOAPODS: 1.7.1

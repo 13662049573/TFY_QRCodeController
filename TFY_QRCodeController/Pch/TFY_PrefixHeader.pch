@@ -1,0 +1,18 @@
+//
+//  TFY_PrefixHeader.pch
+//  TFY_QRCodeController
+//
+//  Created by 田风有 on 2019/6/13.
+//  Copyright © 2019 田风有. All rights reserved.
+//
+
+#ifndef TFY_PrefixHeader_pch
+#define TFY_PrefixHeader_pch
+
+#import <TFY_AutoLayout.h>
+#import <TFY_CategoryHerder.h>
+#import <TFY_Navigation.h>
+#import <TFY_ProgressHUD.h>
+#import <TFY_SimplifytableHeader.h>
+
+#endif /* TFY_PrefixHeader_pch */
