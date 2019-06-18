@@ -171,7 +171,6 @@
 }
 
 - (void)renderUrlStr:(NSString *)url {
-    
     //输出扫描字符串
     if (self.scanFinish) {
         //回调结果到页面上，也可以在此处做跳转操作,如果不想回去，直接注释下面的代码
@@ -219,8 +218,6 @@
     self.toolsView.backgroundColor = [UIColor colorWithRed:0.212 green:0.208 blue:0.231 alpha:1.00];
     
     NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TFY_resource" ofType: @"bundle"]];
-    
-    
     CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width/2, 64);
     
     self.scanTypeQrBtn = [[UIButton alloc]init];

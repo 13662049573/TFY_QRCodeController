@@ -49,7 +49,7 @@
 - (void)setScanType:(TFY_ScanType)scanType
 {
     _scanType = scanType;
-    if (scanType == TFY_ScanTypeBarCode) {
+    if (_scanType == TFY_ScanTypeBarCode) {
         self.heightScale = 3;
         _lineImageView.alpha = 0;
     } else {
@@ -80,10 +80,10 @@
     _lineImageView.alpha = 1;
     __weak typeof (self)weakSelf = self;
     [UIView animateWithDuration:1.5 animations:^{
-        self->_lineImageView.frame = CGRectMake(initFrame.origin.x, YMaxRetangle - 2, initFrame.size.width, initFrame.size.height);
+        weakSelf.lineImageView.frame = CGRectMake(initFrame.origin.x, YMaxRetangle - 2, initFrame.size.width, initFrame.size.height);
     } completion:^(BOOL finished) {
-        self->_lineImageView.alpha = 0;
-        self->_lineImageView.frame = initFrame;
+        weakSelf.lineImageView.alpha = 0;
+        weakSelf.lineImageView.frame = initFrame;
         [weakSelf performSelector:@selector(startAnimating) withObject:nil afterDelay:0.3];
     }];
 }
