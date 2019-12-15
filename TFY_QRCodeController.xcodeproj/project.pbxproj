@@ -553,7 +553,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SEXG86U92J;
+				DEVELOPMENT_TEAM = RP2K7V42S5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TFY_QRCodeController/Pch/TFY_PrefixHeader.pch;
 				INFOPLIST_FILE = TFY_QRCodeController/Info.plist;
@@ -574,7 +574,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SEXG86U92J;
+				DEVELOPMENT_TEAM = RP2K7V42S5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TFY_QRCodeController/Pch/TFY_PrefixHeader.pch;
 				INFOPLIST_FILE = TFY_QRCodeController/Info.plist;

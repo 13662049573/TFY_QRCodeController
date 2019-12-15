@@ -223,7 +223,7 @@
     self.scanTypeQrBtn = [[UIButton alloc]init];
     self.scanTypeQrBtn.frame = CGRectMake(0, 0, size.width, size.height);
     [self.scanTypeQrBtn setTitle:@"二维码" forState:UIControlStateNormal];
-    [self.scanTypeQrBtn setTitleColor:[UIColor colorWithRed:0.165 green:0.663 blue:0.886 alpha:1.00] forState:UIControlStateSelected];
+    [self.scanTypeQrBtn setTitleColor:[UIColor colorWithHue:0.02 saturation:0.84 brightness:0.85 alpha:1.00] forState:UIControlStateSelected];
     [self.scanTypeQrBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.scanTypeQrBtn setImage:[UIImage imageNamed:@"scan_qr_normal" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [self.scanTypeQrBtn setImage:[UIImage imageNamed:@"scan_qr_select" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
@@ -236,7 +236,7 @@
     self.scanTypeBarBtn = [[UIButton alloc]init];
     self.scanTypeBarBtn.frame = CGRectMake(size.width, 0, size.width, size.height);
     [self.scanTypeBarBtn setTitle:@"条形码" forState:UIControlStateNormal];
-    [self.scanTypeBarBtn setTitleColor:[UIColor colorWithRed:0.165 green:0.663 blue:0.886 alpha:1.00] forState:UIControlStateSelected];
+    [self.scanTypeBarBtn setTitleColor:[UIColor colorWithHue:0.02 saturation:0.84 brightness:0.85 alpha:1.00] forState:UIControlStateSelected];
     [self.scanTypeBarBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.scanTypeBarBtn setImage:[UIImage imageNamed:@"scan_bar_normal" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [self.scanTypeBarBtn setImage:[UIImage imageNamed:@"scan_bar_select" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
@@ -462,7 +462,6 @@
         [self showError:@"只支持iOS8.0以上系统"];
         return;
     }
-    
     //系统自带识别方法
     CIContext *context = [CIContext contextWithOptions:nil];
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:context options:@{CIDetectorAccuracy : CIDetectorAccuracyHigh}];
