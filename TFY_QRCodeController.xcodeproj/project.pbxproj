@@ -64,6 +64,7 @@
 		3602DD9822B24B790036EA71 /* TFY_PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_PrefixHeader.pch; sourceTree = "<group>"; };
 		3602DD9922B24DB30036EA71 /* ViewTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewTableViewCell.h; sourceTree = "<group>"; };
 		3602DD9A22B24DB30036EA71 /* ViewTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewTableViewCell.m; sourceTree = "<group>"; };
+		3625C73423A5E8CC00E929D6 /* TFY_ScannerQRHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_ScannerQRHeader.h; sourceTree = "<group>"; };
 		36E5CF8122B3429E00BA001B /* DrawQrViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawQrViewController.h; sourceTree = "<group>"; };
 		36E5CF8222B3429E00BA001B /* DrawQrViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawQrViewController.m; sourceTree = "<group>"; };
 		36E5CF8422B342B400BA001B /* DrawBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawBarViewController.h; sourceTree = "<group>"; };
@@ -178,6 +179,7 @@
 				3602DD9022B246FA0036EA71 /* TFY_ScanViewController.m */,
 				3602DD9222B247240036EA71 /* TFY_ScanView.h */,
 				3602DD9322B247240036EA71 /* TFY_ScanView.m */,
+				3625C73423A5E8CC00E929D6 /* TFY_ScannerQRHeader.h */,
 			);
 			path = TFY_ScannerQR;
 			sourceTree = "<group>";
