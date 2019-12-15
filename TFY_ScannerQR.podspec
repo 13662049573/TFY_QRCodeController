@@ -14,13 +14,13 @@ Pod::Spec.new do |spec|
   
   spec.license      = "MIT"
  
-  spec.author             = { "tfyzxc13662049573" => "420144542@qq.com" }
+  spec.author       = { "tfyzxc13662049573" => "420144542@qq.com" }
   
   spec.platform     = :ios, "10.0"
 
   spec.source       = { :git => "https://github.com/13662049573/TFY_QRCodeController.git", :tag => spec.version }
 
-  spec.source_files  = "TFY_QRCodeController/TFY_ScannerQR/*.{h,m}"
+  spec.source_files  = "TFY_QRCodeController/TFY_ScannerQR/*.{h,m}","TFY_QRCodeController/TFY_ScannerQR/TFY_ScannerQRHeader.h"
   
   spec.resources     = "TFY_QRCodeController/TFY_ScannerQR/TFY_resource.bundle"
 
