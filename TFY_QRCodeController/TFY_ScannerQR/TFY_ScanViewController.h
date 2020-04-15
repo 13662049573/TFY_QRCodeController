@@ -14,23 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TFY_ScanViewController : UIViewController
 /**
- *  扫码区域下方提示文字
- */
-@property (nonatomic, strong) UILabel *tipTitle;
-/**
- *  底部显示的功能项 -box
- */
-@property (nonatomic, strong) UIView *toolsView;
-/**
- *  相册按钮
- */
-@property (nonatomic, strong) UIButton *photoBtn;
-/**
- *  闪光灯按钮
- */
-@property (nonatomic, strong) UIButton *flashBtn;
-
-/**
  * 初始化二维码扫描控制器  type 扫码类型 finish 扫码完成回调 ScanViewController对象
  */
 - (instancetype)initWithQrType:(TFY_ScanType)type onFinish:(void (^)(NSString *result, NSError *error))finish;

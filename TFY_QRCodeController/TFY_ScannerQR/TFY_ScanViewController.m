@@ -11,30 +11,54 @@
 #import <Photos/PHPhotoLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 
-#define XR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) : NO)
-#define Max ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) : NO)
-#define X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+//屏幕高
+#define  QR_Height_H [UIScreen mainScreen].bounds.size.height
+//屏幕宽
+#define  QR_Width_W  [UIScreen mainScreen].bounds.size.width
+
+//等比宽
+#define QR_DEBI_width(CGFloat) (double)CGFloat/(double)375*QR_Width_W
+//等比高
+#define QR_DEBI_height(CGFloat) (double)CGFloat/(double)1334*QR_Height_H
+
+#define QR_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? ((NSInteger)(([[UIScreen mainScreen] currentMode].size.height/[[UIScreen mainScreen] currentMode].size.width)*100) == 216) : NO)
+
+#define kNavBarHeight           (QR_iPhoneX ? 88.0 : 64.0)
+#define kBottomBarHeight        (QR_iPhoneX ? 83.0 : 49.0)
+#define kNavTimebarHeight       (QR_iPhoneX ? 44.0 : 20.0)
+#define kContentHeight          (QR_Height_H - kNavBarHeight-kBottomBarHeight)
 
 @interface TFY_ScanViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCaptureMetadataOutputObjectsDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) TFY_ScanView *scanRectView;
-
 @property (strong, nonatomic) AVCaptureDevice            *device;
 @property (strong, nonatomic) AVCaptureDeviceInput       *input;
 @property (strong, nonatomic) AVCaptureMetadataOutput    *output;
 @property (strong, nonatomic) AVCaptureSession           *session;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *preview;
-
 @property (nonatomic) CGRect scanRect;
-
 @property (nonatomic, strong) UIButton *scanTypeQrBtn; //修改扫码类型按钮
 @property (nonatomic, strong) UIButton *scanTypeBarBtn; //修改扫码类型按钮
-
 @property (nonatomic, copy) void (^scanFinish)(NSString *, NSError *);
 @property (nonatomic, assign) TFY_ScanType scanType;
+/**
+ *  扫码区域下方提示文字
+ */
+@property (nonatomic, strong) UILabel *tipTitle;
+/**
+ *  底部显示的功能项 -box
+ */
+@property (nonatomic, strong) UIView *toolsView;
+/**
+ *  相册按钮
+ */
+@property (nonatomic, strong) UIButton *photoBtn;
+/**
+ *  闪光灯按钮
+ */
+@property (nonatomic, strong) UIButton *flashBtn;
 @end
 
-@implementation TFY_ScanViewController
-{
+@implementation TFY_ScanViewController{
     NSString *appName;
     BOOL delayQRAction;
     BOOL delayBarAction;
@@ -63,7 +87,6 @@
     if (appName == nil || appName.length == 0) {
         appName = @"该App";
     }
-    
     [self initScanDevide];
     [self drawTitle];
     [self drawScanView];
@@ -107,14 +130,15 @@
         self.scanRect = CGRectFromString([self scanRectWithScale:1][0]);
         self.output.rectOfInterest = _scanRect;
         [self drawBottomItems];
-    } else if (self.scanType == TFY_ScanTypeQrCode) {
+    }
+    if (self.scanType == TFY_ScanTypeQrCode) {
         self.output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
         self.title = @"二维码";
         self.scanRect = CGRectFromString([self scanRectWithScale:1][0]);
         self.output.rectOfInterest = _scanRect;
         self.tipTitle.text = @"将取景框对准二维码,即可自动扫描";
-        
-    } else if (self.scanType == TFY_ScanTypeBarCode) {
+    }
+    if (self.scanType == TFY_ScanTypeBarCode) {
         self.output.metadataObjectTypes = @[AVMetadataObjectTypeEAN13Code,
                                             AVMetadataObjectTypeEAN8Code,
                                             AVMetadataObjectTypeCode128Code];
@@ -143,7 +167,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.translucent = NO;
     //开始捕获
     if (self.session) [self.session startRunning];
 }
@@ -186,69 +209,18 @@
 - (void)drawScanView {
     self.scanRectView = [[TFY_ScanView alloc] initWithFrame:self.view.frame style:@""];
     [self.scanRectView setScanType:self.scanType];
-    [self.view addSubview:_scanRectView];
+    [self.view addSubview:self.scanRectView];
 }
 
-- (void)drawTitle
-{
-    if (!_tipTitle)
-    {
-        self.tipTitle = [[UILabel alloc]init];
-        self.tipTitle.bounds = CGRectMake(0, 0, 300, 50);
-        self.tipTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2, self.view.center.y+35);
-        self.tipTitle.font = [UIFont systemFontOfSize:13];
-        self.tipTitle.textAlignment = NSTextAlignmentCenter;
-        self.tipTitle.numberOfLines = 0;
-        self.tipTitle.text = @"将取景框对准二维码,即可自动扫描";
-        self.tipTitle.textColor = [UIColor whiteColor];
-        [self.view addSubview:self.tipTitle];
-    }
-    self.tipTitle.layer.zPosition = 1;
+- (void)drawTitle{
+    [self.view addSubview:self.tipTitle];
     [self.view bringSubviewToFront:self.tipTitle];
 }
 
-- (void)drawBottomItems
-{
-    if (self.toolsView) {
-        
-        return;
-    }
-    
-    self.toolsView = [[UIView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-((X || Max ||XR)? 152 : 128), [UIScreen mainScreen].bounds.size.width, 64)];
-    self.toolsView.backgroundColor = [UIColor colorWithRed:0.212 green:0.208 blue:0.231 alpha:1.00];
-    
-    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TFY_resource" ofType: @"bundle"]];
-    CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width/2, 64);
-    
-    self.scanTypeQrBtn = [[UIButton alloc]init];
-    self.scanTypeQrBtn.frame = CGRectMake(0, 0, size.width, size.height);
-    [self.scanTypeQrBtn setTitle:@"二维码" forState:UIControlStateNormal];
-    [self.scanTypeQrBtn setTitleColor:[UIColor colorWithHue:0.02 saturation:0.84 brightness:0.85 alpha:1.00] forState:UIControlStateSelected];
-    [self.scanTypeQrBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.scanTypeQrBtn setImage:[UIImage imageNamed:@"scan_qr_normal" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
-    [self.scanTypeQrBtn setImage:[UIImage imageNamed:@"scan_qr_select" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
-    [self.scanTypeQrBtn setSelected:YES];
-    self.scanTypeQrBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
-    self.scanTypeQrBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    
-    [self.scanTypeQrBtn addTarget:self action:@selector(qrBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.scanTypeBarBtn = [[UIButton alloc]init];
-    self.scanTypeBarBtn.frame = CGRectMake(size.width, 0, size.width, size.height);
-    [self.scanTypeBarBtn setTitle:@"条形码" forState:UIControlStateNormal];
-    [self.scanTypeBarBtn setTitleColor:[UIColor colorWithHue:0.02 saturation:0.84 brightness:0.85 alpha:1.00] forState:UIControlStateSelected];
-    [self.scanTypeBarBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.scanTypeBarBtn setImage:[UIImage imageNamed:@"scan_bar_normal" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
-    [self.scanTypeBarBtn setImage:[UIImage imageNamed:@"scan_bar_select" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
-    [self.scanTypeBarBtn setSelected:NO];
-    self.scanTypeBarBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
-    self.scanTypeBarBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    [self.scanTypeBarBtn addTarget:self action:@selector(barBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
+- (void)drawBottomItems{
+    [self.view addSubview:self.toolsView];
     [self.toolsView addSubview:self.scanTypeQrBtn];
     [self.toolsView addSubview:self.scanTypeBarBtn];
-    [self.view addSubview:self.toolsView];
 }
 
 - (void)setNavItem:(TFY_ScanType)type {
@@ -595,5 +567,62 @@
     });
 }
 
+-(UIView *)toolsView{
+    if (!_toolsView) {
+        _toolsView = [[UIView alloc] initWithFrame:CGRectMake(0, kContentHeight, QR_Width_W, kBottomBarHeight)];
+        _toolsView.backgroundColor = [UIColor colorWithHue:1.00 saturation:0.01 brightness:0.26 alpha:1.00];
+    }
+    return _toolsView;
+}
+
+-(UIButton *)scanTypeQrBtn{
+    if (!_scanTypeQrBtn) {
+        NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TFY_resource" ofType:@"bundle"]];
+        _scanTypeQrBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _scanTypeQrBtn.frame = CGRectMake(0, 0, QR_Width_W/2, kBottomBarHeight);
+        [_scanTypeQrBtn setTitle:@"二维码" forState:UIControlStateNormal];
+        [_scanTypeQrBtn setTitleColor:[UIColor colorWithHue:0.02 saturation:0.84 brightness:0.85 alpha:1.00] forState:UIControlStateSelected];
+        [_scanTypeQrBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_scanTypeQrBtn setImage:[UIImage imageNamed:@"scan_qr_normal" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        [_scanTypeQrBtn setImage:[UIImage imageNamed:@"scan_qr_select" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
+        [_scanTypeQrBtn setSelected:YES];
+        _scanTypeQrBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
+        _scanTypeQrBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        [_scanTypeQrBtn addTarget:self action:@selector(qrBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _scanTypeQrBtn;
+}
+
+-(UIButton *)scanTypeBarBtn{
+    if (!_scanTypeBarBtn) {
+        NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"TFY_resource" ofType:@"bundle"]];
+        _scanTypeBarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _scanTypeBarBtn.frame = CGRectMake(QR_Width_W/2, 0, QR_Width_W/2,kBottomBarHeight);
+        [_scanTypeBarBtn setTitle:@"条形码" forState:UIControlStateNormal];
+        [_scanTypeBarBtn setTitleColor:[UIColor colorWithHue:0.02 saturation:0.84 brightness:0.85 alpha:1.00] forState:UIControlStateSelected];
+        [_scanTypeBarBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_scanTypeBarBtn setImage:[UIImage imageNamed:@"scan_bar_normal" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
+        [_scanTypeBarBtn setImage:[UIImage imageNamed:@"scan_bar_select" inBundle:bundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
+        [_scanTypeBarBtn setSelected:NO];
+        _scanTypeBarBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
+        _scanTypeBarBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        [_scanTypeBarBtn addTarget:self action:@selector(barBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _scanTypeBarBtn;
+}
+
+-(UILabel *)tipTitle{
+    if (!_tipTitle) {
+        _tipTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, QR_Width_W/2, 50)];
+        _tipTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2, self.view.center.y+35);
+        _tipTitle.font = [UIFont systemFontOfSize:13];
+        _tipTitle.textAlignment = NSTextAlignmentCenter;
+        _tipTitle.numberOfLines = 0;
+        _tipTitle.text = @"将取景框对准二维码,即可自动扫描";
+        _tipTitle.textColor = [UIColor whiteColor];
+        _tipTitle.layer.zPosition = 1;
+    }
+    return _tipTitle;
+}
 
 @end
