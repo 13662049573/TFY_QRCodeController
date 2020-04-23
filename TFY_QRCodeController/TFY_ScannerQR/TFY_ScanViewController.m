@@ -114,23 +114,7 @@
         if ([self.session canAddOutput:self.output]) [self.session addOutput:self.output];
         
         //设置扫码支持的编码格式【默认二维码】
-        //设置扫码支持的编码格式
-        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:0];
-        
-        if ([self.output.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeQRCode]) {
-            [array addObject:AVMetadataObjectTypeQRCode];
-        }
-        if ([self.output.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeEAN13Code]) {
-            [array addObject:AVMetadataObjectTypeEAN13Code];
-        }
-        if ([self.output.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeEAN8Code]) {
-            [array addObject:AVMetadataObjectTypeEAN8Code];
-        }
-        if ([self.output.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeCode128Code]) {
-            [array addObject:AVMetadataObjectTypeCode128Code];
-        }
-        
-        self.output.metadataObjectTypes = array;
+        self.output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
         //设置扫描聚焦区域
         self.output.rectOfInterest = _scanRect;
         
