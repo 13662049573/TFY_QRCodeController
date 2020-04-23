@@ -108,13 +108,29 @@
         //初始化链接对象
         self.session = [[AVCaptureSession alloc] init];
         //设置采集质量
-        [self.session setSessionPreset:AVCaptureSessionPresetInputPriority];
+        [self.session setSessionPreset:AVCaptureSessionPresetHigh];
         //将输入输出流对象添加到链接对象
         if ([self.session canAddInput:self.input]) [self.session addInput:self.input];
         if ([self.session canAddOutput:self.output]) [self.session addOutput:self.output];
         
         //设置扫码支持的编码格式【默认二维码】
-        self.output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
+        //设置扫码支持的编码格式
+        NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:0];
+        
+        if ([self.output.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeQRCode]) {
+            [array addObject:AVMetadataObjectTypeQRCode];
+        }
+        if ([self.output.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeEAN13Code]) {
+            [array addObject:AVMetadataObjectTypeEAN13Code];
+        }
+        if ([self.output.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeEAN8Code]) {
+            [array addObject:AVMetadataObjectTypeEAN8Code];
+        }
+        if ([self.output.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeCode128Code]) {
+            [array addObject:AVMetadataObjectTypeCode128Code];
+        }
+        
+        self.output.metadataObjectTypes = array;
         //设置扫描聚焦区域
         self.output.rectOfInterest = _scanRect;
         
@@ -158,7 +174,7 @@
     CGSize windowSize = [UIScreen mainScreen].bounds.size;
     CGFloat Left = 60 / scale;
     CGSize scanSize = CGSizeMake(self.view.frame.size.width - Left * 2, (self.view.frame.size.width - Left * 2) / scale);
-    CGRect scanRect = CGRectMake((windowSize.width-scanSize.width)/2, (windowSize.height-scanSize.height)/2, scanSize.width, scanSize.height);
+    CGRect scanRect = CGRectMake((windowSize.width-scanSize.width)/2, (windowSize.height-scanSize.height)/3, scanSize.width, scanSize.height);
     
     scanRect = CGRectMake(scanRect.origin.y/windowSize.height, scanRect.origin.x/windowSize.width, scanRect.size.height/windowSize.height,scanRect.size.width/windowSize.width);
     
@@ -430,10 +446,6 @@
 
 - (void)recognizeQrCodeImage:(UIImage *)image onFinish:(void (^)(NSString *result))finish {
     
-    if ([[[UIDevice currentDevice]systemVersion]floatValue] < 8.0 ) {
-        [self showError:@"只支持iOS8.0以上系统"];
-        return;
-    }
     //系统自带识别方法
     CIContext *context = [CIContext contextWithOptions:nil];
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:context options:@{CIDetectorAccuracy : CIDetectorAccuracyHigh}];
