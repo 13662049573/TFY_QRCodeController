@@ -106,7 +106,7 @@
 -(UIButton *)btns{
     if (!_btns) {
         _btns = tfy_button();
-        _btns.tfy_title(@"生产二维码", @"ffffff", 15).tfy_action(self, @selector(createQrBtnClicked:)).tfy_backgroundColor(@"A538FE", 1);
+        _btns.tfy_title(@"生产二维码",UIControlStateNormal, @"ffffff",UIControlStateNormal, [UIFont boldSystemFontOfSize:15]).tfy_action(self, @selector(createQrBtnClicked:),UIControlEventTouchUpInside).tfy_backgroundColor(@"A538FE", 1);
     }
     return _btns;
 }
