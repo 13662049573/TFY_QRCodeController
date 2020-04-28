@@ -40,7 +40,7 @@
 - (void)createQrBtnClicked:(id)sender {
     
     if (self.textfiled.text == nil || self.textfiled.text.length == 0) {
-        self.textfiled.text = @"http://www.baidu.com";
+        self.textfiled.text = @"ee:4e:8u:YA,djkhfkakfnkanfaf";
     }
     
     UIImage *image = [TFY_ScanViewController createQRImageWithString:self.textfiled.text QRSize:CGSizeMake(250, 250) QRColor:[UIColor blackColor] bkColor:[UIColor colorWithRed:0.318 green:0.690 blue:0.839 alpha:1.00]];
@@ -90,7 +90,7 @@
 -(UITextField *)textfiled{
     if (!_textfiled) {
         _textfiled = [UITextField new];
-        _textfiled.text = @"http://www.baidu.com";
+        _textfiled.text = @"ee:4e:8u:YA,djkhfkakfnkanfaf";
     }
     return _textfiled;
 }
