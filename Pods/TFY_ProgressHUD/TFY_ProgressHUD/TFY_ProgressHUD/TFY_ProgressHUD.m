@@ -31,7 +31,8 @@ typedef NS_ENUM(NSUInteger, ProgressHUDType){
     ProgressHUD_ERROR = 0,  // 错误信息
     ProgressHUD_SUCCESS,    // 成功信息
     ProgressHUD_PROMPT,     // 提示信息
-    ProgressHUD_LOADING     //加载圈
+    ProgressHUD_LOADING,     //加载圈
+    ProgressHUD_DISMISS
 };
 
 static const CGFloat kDefaultSpringDamping = 0.8;
@@ -218,8 +219,11 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
     if (status == ProgressHUD_LOADING) {
         [self show];
     }
+    if (status == ProgressHUD_DISMISS) {
+        [self dismiss];
+    }
     else{
-      [self showWithDuration:time];
+       [self showWithDuration:time];
     }
 }
 
@@ -241,8 +245,15 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
     }
 }
 
-+ (void)dismissPopupForView:(UIView *)view animated:(BOOL)animated {
-    [view dismissShowingPopup:animated];
++ (void)dismissStatus:(NSString *)string{
+    [[TFY_ProgressHUD sharedView] showToastVieWiththContent:string showType:TFY_PopupShowType_FadeIn dismissType:TFY_PopupDismissType_ShrinkOut maskType:TFY_PopupMaskType_None Status:ProgressHUD_DISMISS stopTime:1];
+}
+
+/**
+ * 关闭对应的弹出框
+ */
++ (void)dismiss{
+    [self dismissSuperPopupIn:[TFY_ProgressHUD sharedView].hudView animated:YES];
 }
 
 + (void)dismissSuperPopupIn:(UIView *)view animated:(BOOL)animated {
@@ -719,6 +730,7 @@ const TFY_PopupLayout TFY_PopupLayout_Center = { TFY_PopupHorizontalLayout_Cente
             }
             
             void (^completionBlock)(BOOL) = ^(BOOL finished) {
+                [strongSelf.spinnerView stopAnimating];
                 [strongSelf.hudView removeFromSuperview];
                 strongSelf.hudView = nil;
                 [strongSelf.stringLabel removeFromSuperview];

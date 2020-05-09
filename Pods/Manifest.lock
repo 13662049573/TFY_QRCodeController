@@ -8,14 +8,20 @@ PODS:
   - TFY_AutoLayout/MAC_Layout (2.5.2):
     - TFY_AutoLayout/Util
   - TFY_AutoLayout/Util (2.5.2)
-  - TFY_Category (3.2.1)
+  - TFY_Category (3.2.8):
+    - TFY_Category/TFY_Foundation (= 3.2.8)
+    - TFY_Category/TFY_ITools (= 3.2.8)
+    - TFY_Category/TFY_UI (= 3.2.8)
+  - TFY_Category/TFY_Foundation (3.2.8)
+  - TFY_Category/TFY_ITools (3.2.8)
+  - TFY_Category/TFY_UI (3.2.8)
   - TFY_Navigation (2.2.2):
     - TFY_Navigation/TFY_NavControoler (= 2.2.2)
     - TFY_Navigation/TFY_PopController (= 2.2.2)
   - TFY_Navigation/TFY_NavControoler (2.2.2):
     - TFY_Navigation/TFY_PopController
   - TFY_Navigation/TFY_PopController (2.2.2)
-  - TFY_ProgressHUD (2.3.7)
+  - TFY_ProgressHUD (2.3.9)
   - TFY_SimplifytableViewKit (2.1.8)
 
 DEPENDENCIES:
@@ -35,11 +41,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   TFY_AutoLayout: 792116abdb3fb2758c59d29ac16322bbfe8441ab
-  TFY_Category: 40140fcc1faf34dbc18c25e627c203c795f58f2a
+  TFY_Category: 75797a0b1aa72794bd7b4258608af00007467453
   TFY_Navigation: 3523efe2942ef7bede46223f5bb0553e8842096e
-  TFY_ProgressHUD: 13e359835614e4384a3bca9602ad651d32085765
+  TFY_ProgressHUD: f0201d5f5be0784435e23d385687572ab16410a4
   TFY_SimplifytableViewKit: 89e6d40925eae80ca5ee9a2fb129bd584c86c72f
 
-PODFILE CHECKSUM: 9c53dae84c1193d805328daae040a6402fd1b284
+PODFILE CHECKSUM: 81a097662a2bd638c44057a70b515fccc8d1a2fe
 
 COCOAPODS: 1.9.1
