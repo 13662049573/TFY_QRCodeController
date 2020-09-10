@@ -66,13 +66,13 @@
 		3602DD9822B24B790036EA71 /* TFY_PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_PrefixHeader.pch; sourceTree = "<group>"; };
 		3602DD9922B24DB30036EA71 /* ViewTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewTableViewCell.h; sourceTree = "<group>"; };
 		3602DD9A22B24DB30036EA71 /* ViewTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewTableViewCell.m; sourceTree = "<group>"; };
-		3625C73423A5E8CC00E929D6 /* TFY_ScannerQRHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_ScannerQRHeader.h; sourceTree = "<group>"; };
 		3625C73523A5E94C00E929D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3625C73723A5E95300E929D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		36E5CF8122B3429E00BA001B /* DrawQrViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawQrViewController.h; sourceTree = "<group>"; };
 		36E5CF8222B3429E00BA001B /* DrawQrViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawQrViewController.m; sourceTree = "<group>"; };
 		36E5CF8422B342B400BA001B /* DrawBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DrawBarViewController.h; sourceTree = "<group>"; };
 		36E5CF8522B342B400BA001B /* DrawBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawBarViewController.m; sourceTree = "<group>"; };
+		36EE10F52509F24E00D24B3C /* TFY_ScannerQR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TFY_ScannerQR.h; sourceTree = "<group>"; };
 		52425E4474AC3A823E23A6B1 /* libPods-TFY_QRCodeController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TFY_QRCodeController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B693D6974C547A5E2A1A186 /* Pods-TFY_QRCodeController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TFY_QRCodeController.debug.xcconfig"; path = "Target Support Files/Pods-TFY_QRCodeController/Pods-TFY_QRCodeController.debug.xcconfig"; sourceTree = "<group>"; };
 		E9D465D29162F2EF52439B45 /* Pods-TFY_QRCodeController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TFY_QRCodeController.release.xcconfig"; path = "Target Support Files/Pods-TFY_QRCodeController/Pods-TFY_QRCodeController.release.xcconfig"; sourceTree = "<group>"; };
@@ -180,12 +180,12 @@
 		3602DD8E22B246DE0036EA71 /* TFY_ScannerQR */ = {
 			isa = PBXGroup;
 			children = (
+				36EE10F52509F24E00D24B3C /* TFY_ScannerQR.h */,
 				3602DD9522B2474C0036EA71 /* TFY_resource.bundle */,
 				3602DD8F22B246FA0036EA71 /* TFY_ScanViewController.h */,
 				3602DD9022B246FA0036EA71 /* TFY_ScanViewController.m */,
 				3602DD9222B247240036EA71 /* TFY_ScanView.h */,
 				3602DD9322B247240036EA71 /* TFY_ScanView.m */,
-				3625C73423A5E8CC00E929D6 /* TFY_ScannerQRHeader.h */,
 			);
 			path = TFY_ScannerQR;
 			sourceTree = "<group>";
