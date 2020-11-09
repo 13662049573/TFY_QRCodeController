@@ -97,7 +97,7 @@
 
 -(UIImageView *)imageViews{
     if (!_imageViews) {
-        _imageViews = tfy_imageView();
+        _imageViews = UIImageViewSet();
         _imageViews.userInteractionEnabled = YES;
     }
     return _imageViews;
@@ -105,8 +105,13 @@
 
 -(UIButton *)btns{
     if (!_btns) {
-        _btns = tfy_button();
-        _btns.tfy_title(@"生产二维码",UIControlStateNormal, @"ffffff",UIControlStateNormal, [UIFont boldSystemFontOfSize:15]).tfy_action(self, @selector(createQrBtnClicked:),UIControlEventTouchUpInside).tfy_backgroundColor(@"A538FE", 1);
+        _btns = UIButtonSet();
+        _btns.makeChain
+        .text(@"生产二维码", UIControlStateNormal)
+        .textColor([UIColor tfy_colorWithHex:@"ffffff"], UIControlStateNormal)
+        .font([UIFont boldSystemFontOfSize:15])
+        .addTarget(self, @selector(createQrBtnClicked:), UIControlEventTouchUpInside)
+        .backgroundColor([UIColor tfy_colorWithHex:@"A538FE"]);
     }
     return _btns;
 }

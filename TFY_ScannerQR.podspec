@@ -2,7 +2,7 @@
 Pod::Spec.new do |spec|
   spec.name         = "TFY_ScannerQR"
 
-  spec.version      = "2.0.8"
+  spec.version      = "2.1.0"
 
   spec.summary      = "封装好的二维码和条形码共存，更好方便使用。"
 
@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
  
   spec.author       = { "tfyzxc13662049573" => "420144542@qq.com" }
   
-  spec.platform     = :ios, "10.0"
+  spec.platform     = :ios, "12.0"
 
   spec.source       = { :git => "https://github.com/13662049573/TFY_QRCodeController.git", :tag => spec.version }
 

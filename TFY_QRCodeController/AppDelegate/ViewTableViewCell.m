@@ -36,7 +36,7 @@
 -(void)setText_str:(NSString *)text_str{
     _text_str = text_str;
     
-    self.title_label.tfy_text(_text_str);
+    self.title_label.makeChain.text(_text_str);
 }
 
 
@@ -52,15 +52,19 @@
 
 -(UILabel *)title_label{
     if (!_title_label) {
-        _title_label = tfy_label();
-        _title_label.tfy_textcolor(@"212121", 1).tfy_fontSize([UIFont boldSystemFontOfSize:15]).tfy_alignment(0);
+        _title_label = UILabelSet();
+        _title_label.makeChain
+        .textColor([UIColor tfy_colorWithHex:@"212121"])
+        .font([UIFont boldSystemFontOfSize:15])
+        .textAlignment(NSTextAlignmentCenter);
     }
     return _title_label;
 }
 
 -(UIImageView *)ico_imageView{
     if (!_ico_imageView) {
-        _ico_imageView = tfy_imageView().tfy_imge(@"jiantou");
+        _ico_imageView = UIImageViewSet();
+        _ico_imageView.makeChain.image([UIImage imageNamed:@"jiantou"]);
     }
     return _ico_imageView;
 }

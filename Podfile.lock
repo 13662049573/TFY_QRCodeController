@@ -8,13 +8,37 @@ PODS:
   - TFY_AutoLayout/MAC_Layout (2.6.4):
     - TFY_AutoLayout/Util
   - TFY_AutoLayout/Util (2.6.4)
-  - TFY_Category (3.6.4):
-    - TFY_Category/TFY_Foundation (= 3.6.4)
-    - TFY_Category/TFY_ITools (= 3.6.4)
-    - TFY_Category/TFY_UI (= 3.6.4)
-  - TFY_Category/TFY_Foundation (3.6.4)
-  - TFY_Category/TFY_ITools (3.6.4)
-  - TFY_Category/TFY_UI (3.6.4)
+  - TFY_LayoutCategoryKit (1.6.8):
+    - TFY_LayoutCategoryKit/TFY_Categories (= 1.6.8)
+    - TFY_LayoutCategoryKit/TFY_Chain (= 1.6.8)
+    - TFY_LayoutCategoryKit/TFY_Tools (= 1.6.8)
+  - TFY_LayoutCategoryKit/TFY_Categories (1.6.8):
+    - TFY_LayoutCategoryKit/TFY_Categories/TFY_Foundation (= 1.6.8)
+    - TFY_LayoutCategoryKit/TFY_Categories/TFY_UI (= 1.6.8)
+    - TFY_LayoutCategoryKit/TFY_Tools
+  - TFY_LayoutCategoryKit/TFY_Categories/TFY_Foundation (1.6.8):
+    - TFY_LayoutCategoryKit/TFY_Tools
+  - TFY_LayoutCategoryKit/TFY_Categories/TFY_UI (1.6.8):
+    - TFY_LayoutCategoryKit/TFY_Tools
+  - TFY_LayoutCategoryKit/TFY_Chain (1.6.8):
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_CALayer (= 1.6.8)
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_ChainBase (= 1.6.8)
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_UIGesture (= 1.6.8)
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_UIView (= 1.6.8)
+  - TFY_LayoutCategoryKit/TFY_Chain/TFY_CALayer (1.6.8):
+    - TFY_LayoutCategoryKit/TFY_Categories/TFY_UI
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_ChainBase
+  - TFY_LayoutCategoryKit/TFY_Chain/TFY_ChainBase (1.6.8)
+  - TFY_LayoutCategoryKit/TFY_Chain/TFY_UIGesture (1.6.8):
+    - TFY_LayoutCategoryKit/TFY_Categories/TFY_UI
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_ChainBase
+  - TFY_LayoutCategoryKit/TFY_Chain/TFY_UIView (1.6.8):
+    - TFY_LayoutCategoryKit/TFY_Categories/TFY_Foundation
+    - TFY_LayoutCategoryKit/TFY_Categories/TFY_UI
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_CALayer
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_ChainBase
+    - TFY_LayoutCategoryKit/TFY_Chain/TFY_UIGesture
+  - TFY_LayoutCategoryKit/TFY_Tools (1.6.8)
   - TFY_Navigation (2.6.4):
     - TFY_Navigation/TFY_NavControoler (= 2.6.4)
     - TFY_Navigation/TFY_PageController (= 2.6.4)
@@ -37,7 +61,7 @@ PODS:
 
 DEPENDENCIES:
   - TFY_AutoLayout
-  - TFY_Category
+  - TFY_LayoutCategoryKit
   - TFY_Navigation
   - TFY_ProgressHUD
   - TFY_SimplifytableViewKit
@@ -45,18 +69,18 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - TFY_AutoLayout
-    - TFY_Category
+    - TFY_LayoutCategoryKit
     - TFY_Navigation
     - TFY_ProgressHUD
     - TFY_SimplifytableViewKit
 
 SPEC CHECKSUMS:
   TFY_AutoLayout: 51019bdcdb78b9a145bd0ed351d23be93379dc0b
-  TFY_Category: 8b7f1816acaf1d6cdf6766bbc5796be5707ddc5a
+  TFY_LayoutCategoryKit: 1114d02981a898cfce539698236702bef66d33ee
   TFY_Navigation: 9d9bf5a9ced9d7be01a8b99d63066b12731351cb
   TFY_ProgressHUD: 56e59fdf0f932267246a5d0fe316d6511684f0a4
   TFY_SimplifytableViewKit: 4cff3a69e4edc89151cfc5d4ba03574400b54189
 
-PODFILE CHECKSUM: 81a097662a2bd638c44057a70b515fccc8d1a2fe
+PODFILE CHECKSUM: 7fef9a0ff212f7caf56e3e2573902d1e0fe4c9c6
 
 COCOAPODS: 1.10.0

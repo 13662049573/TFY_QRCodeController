@@ -10,9 +10,9 @@
 #define TFY_PrefixHeader_pch
 
 #import <TFY_AutoLayout.h>
-#import <TFY_CategoryHerder.h>
+#import <TFY_LayoutCategoryKit.h>
 #import <TFY_Navigation.h>
-#import <TFY_ProgressHUD.h>
+#import <TFY_ProgressHMB.h>
 #import <TFY_SimplifytableHeader.h>
 
 #endif /* TFY_PrefixHeader_pch */

@@ -91,7 +91,7 @@
         _tableView.showsVerticalScrollIndicator=NO;
         _tableView.showsHorizontalScrollIndicator=NO;
         _tableView.separatorInset= UIEdgeInsetsMake(0,20,0,20);
-        _tableView.separatorColor = [UIColor tfy_ColorWithHexString:@"E8E8E8"];
+        _tableView.separatorColor = [UIColor tfy_colorWithHex:@"E8E8E8"];
         _tableView.estimatedRowHeight=30;
         _tableView.rowHeight=UITableViewAutomaticDimension;
     }
