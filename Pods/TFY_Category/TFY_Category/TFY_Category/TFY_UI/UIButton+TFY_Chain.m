@@ -19,11 +19,11 @@
 /**
  *  🐶nn    👇
  */
-@property(nonatomic,strong)dispatch_source_t timer;
+@property(nonatomic,strong)dispatch_source_t tfy_timer;
 /**
  *  🐶记录外边的时间    👇
  */
-@property(nonatomic,assign)NSInteger userTime;
+@property(nonatomic,assign)NSInteger tfy_userTime;
 
 @end
 
@@ -104,15 +104,15 @@ UIColor *_startColorTwo;
 NSInteger _lineWidths;
 NSInteger _topHeight;
 static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
-@dynamic startColorOne;
-@dynamic startColorTwo;
-@dynamic lineWidths;
-@dynamic topHeight;
+@dynamic tfy_startColorOne;
+@dynamic tfy_startColorTwo;
+@dynamic tfy_lineWidths;
+@dynamic tfy_topHeight;
 
 /**
  *  文本输入
  */
--(UIButton *(^)(NSString *title_str,UIControlState state))tfy_text{
+-(UIButton *(^)(NSString *,UIControlState))tfy_text{
     WSelf(myself);
     return ^(NSString *title_str,UIControlState state){
         [myself setTitle:title_str forState:state];
@@ -122,7 +122,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  文本颜色
  */
--(UIButton *(^)(id color_str,UIControlState colorstate))tfy_textcolor{
+-(UIButton *(^)(id,UIControlState))tfy_textcolor{
     WSelf(myself);
     return ^(id color_str,UIControlState colorstate){
         if ([color_str isKindOfClass:[UIColor class]]) {
@@ -137,7 +137,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  文本大小
  */
--(UIButton *(^)(UIFont *font))tfy_font{
+-(UIButton *(^)(UIFont *))tfy_font{
     WSelf(myself);
     return ^(UIFont *font){
         myself.titleLabel.font = font;
@@ -148,7 +148,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  按钮 title_str 文本文字 color_str 文字颜色  font文字大小
  */
--(UIButton *(^)(NSString *title_str,UIControlState titlestate,id color_str,UIControlState colorstate,UIFont *font))tfy_title{
+-(UIButton *(^)(NSString *,UIControlState,id,UIControlState,UIFont *))tfy_title{
     WSelf(myself);
     return ^(NSString *title_str,UIControlState titlestate,id color_str,UIControlState colorstate,UIFont *font){
         [myself setTitle:title_str forState:titlestate];
@@ -165,7 +165,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  按钮  HexString 背景颜色 alpha 背景透明度
  */
--(UIButton *(^)(id HexString,CGFloat alpha))tfy_backgroundColor{
+-(UIButton *(^)(id,CGFloat))tfy_backgroundColor{
     WSelf(myself);
     return ^(id HexString,CGFloat alpha){
         if ([HexString isKindOfClass:[NSString class]]) {
@@ -180,7 +180,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  按钮  alignment 0 左 1 中 2 右
  */
--(UIButton *(^)(NSInteger alignment))tfy_alAlignment{
+-(UIButton *(^)(NSInteger))tfy_alAlignment{
     WSelf(myself);
     return ^(NSInteger alignment){
         switch (alignment) {
@@ -200,7 +200,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  添加四边框和color 颜色  borderWidth 宽度
  */
--(UIButton *(^)(CGFloat borderWidth, id color))tfy_borders{
+-(UIButton *(^)(CGFloat, id))tfy_borders{
     WSelf(myself);
     return ^(CGFloat borderWidth,id color){
         myself.layer.borderWidth = borderWidth;
@@ -216,7 +216,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  添加四边 color_str阴影颜色  shadowRadius阴影半径
  */
--(UIButton *(^)(id color_str, CGFloat shadowRadius))tfy_bordersShadow{
+-(UIButton *(^)(id, CGFloat))tfy_bordersShadow{
     WSelf(myself);
     return ^(id color_str, CGFloat shadowRadius){
         // 阴影颜色
@@ -240,7 +240,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  按钮  cornerRadius 圆角
  */
--(UIButton *(^)(CGFloat cornerRadius))tfy_cornerRadius{
+-(UIButton *(^)(CGFloat))tfy_cornerRadius{
     WSelf(myself);
     return ^(CGFloat cornerRadius){
         myself.layer.cornerRadius = cornerRadius;
@@ -250,7 +250,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  按钮  image_str 图片字符串
  */
--(UIButton *(^)(id image_id,UIControlState state))tfy_image{
+-(UIButton *(^)(id,UIControlState))tfy_image{
     WSelf(myself);
     return ^(id image_id,UIControlState state){
         if ([image_id isKindOfClass:[UIColor class]]) {
@@ -265,7 +265,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  按钮  backimage_str 背景图片
  */
--(UIButton *(^)(id image_id,UIControlState state))tfy_backgroundImage{
+-(UIButton *(^)(id,UIControlState))tfy_backgroundImage{
     WSelf(myself);
     return ^(id image_id,UIControlState state){
         if ([image_id isKindOfClass:[UIColor class]]) {
@@ -280,7 +280,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  按钮 点击方法
  */
--(UIButton *(^)(id object, SEL action,UIControlEvents events))tfy_action{
+-(UIButton *(^)(id, SEL,UIControlEvents))tfy_action{
     WSelf(myself);
     return ^(id object, SEL action,UIControlEvents events){
         [myself addTarget:object action:action forControlEvents:events];
@@ -288,7 +288,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
     };
 }
 
-- (UIButton *(^)(BOOL adjustsWidth))tfy_adjustsWidth{
+- (UIButton *(^)(BOOL))tfy_adjustsWidth{
     WSelf(weakSelf);
     return ^(BOOL adjustsWidth){
         weakSelf.titleLabel.adjustsFontSizeToFitWidth = adjustsWidth;
@@ -296,7 +296,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
     };
 }
 
-- (UIButton *(^)(NSInteger numberOfLines))tfy_numberOfLines{
+- (UIButton *(^)(NSInteger))tfy_numberOfLines{
     WSelf(weakSelf);
     return ^(NSInteger numberOfLines){
         weakSelf.titleLabel.numberOfLines = numberOfLines;
@@ -306,7 +306,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  * 文字省略格式
  */
-- (UIButton *(^)(NSLineBreakMode mode))tfy_lineBreakMode{
+- (UIButton *(^)(NSLineBreakMode))tfy_lineBreakMode{
     WSelf(weakSelf);
     return ^(NSLineBreakMode mode){
         weakSelf.titleLabel.lineBreakMode = mode;
@@ -314,7 +314,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
     };
 }
 
-- (UIButton *(^)(NSAttributedString *attributrdString,UIControlState state))tfy_attributrdString{
+- (UIButton *(^)(NSAttributedString *,UIControlState))tfy_attributrdString{
     WSelf(weakSelf);
     return ^(NSAttributedString *attributrdString,UIControlState state){
         [weakSelf setAttributedTitle:attributrdString forState:state];
@@ -325,7 +325,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  添加指定的View
  */
--(UIButton *(^)(UIView *view))tfy_addToSuperView{
+-(UIButton *(^)(UIView *))tfy_addToSuperView{
     WSelf(myself);
     return ^(UIView *view){
         [view addSubview:myself];
@@ -336,7 +336,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  * 隐藏本类
  */
--(UIButton *(^)(BOOL hidden))tfy_hidden{
+-(UIButton *(^)(BOOL))tfy_hidden{
     WSelf(myself);
     return ^(BOOL hidden){
         myself.hidden = hidden;
@@ -346,7 +346,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  * 透明度
  */
--(UIButton *(^)(CGFloat alpha))tfy_alpha{
+-(UIButton *(^)(CGFloat))tfy_alpha{
     WSelf(myself);
     return ^(CGFloat alpha){
         myself.alpha = alpha;
@@ -356,7 +356,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  * 交互开关
  */
--(UIButton *(^)(BOOL userInteractionEnabled))tfy_userInteractionEnabled{
+-(UIButton *(^)(BOOL))tfy_userInteractionEnabled{
     WSelf(myself);
     return ^(BOOL userInteractionEnabled){
         myself.userInteractionEnabled = userInteractionEnabled;
@@ -367,7 +367,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  位置偏移量
  */
--(UIButton *(^)(UIEdgeInsets insets))tfy_contentEdgeInsets{
+-(UIButton *(^)(UIEdgeInsets))tfy_contentEdgeInsets{
     WSelf(myself);
     return ^(UIEdgeInsets insets){
         myself.contentEdgeInsets = insets;
@@ -377,7 +377,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  文字偏移量
  */
--(UIButton *(^)(UIEdgeInsets insets))tfy_titleEdgeInsets{
+-(UIButton *(^)(UIEdgeInsets))tfy_titleEdgeInsets{
     WSelf(myself);
     return ^(UIEdgeInsets insets){
         myself.titleEdgeInsets = insets;
@@ -387,7 +387,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  图片偏移量
  */
--(UIButton *(^)(UIEdgeInsets insets))tfy_imageEdgeInsets{
+-(UIButton *(^)(UIEdgeInsets))tfy_imageEdgeInsets{
     WSelf(myself);
     return ^(UIEdgeInsets insets){
         myself.imageEdgeInsets = insets;
@@ -395,8 +395,19 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
     };
 }
 
+/**
+ *  添加图片的位置和文字距离
+ */
+-(UIButton *(^)(ButtonPosition,CGFloat))tfy_layouEdgeInsetsPosition{
+    WSelf(myself);
+    return ^(ButtonPosition postion,CGFloat spacing){
+        [myself tfy_layouEdgeInsetsPosition:postion spacing:spacing];
+        return myself;
+    };
+}
 
-- (UIButton * _Nonnull (^)(ButtonLimitTimesTapBlock _Nonnull))buttonTapTime{
+
+- (UIButton * _Nonnull (^)(ButtonLimitTimesTapBlock _Nonnull))tfy_buttonTapTime{
     return ^(ButtonLimitTimesTapBlock block){
         if (block != nil) {
             UI_swizzleButtonIfNeed(object_getClass(self));
@@ -406,14 +417,14 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
     };
 }
 
-- (UIButton * _Nonnull (^)(NSTimeInterval))tapSpaceTime{
+- (UIButton * _Nonnull (^)(NSTimeInterval))tfy_tapSpaceTime{
     return ^(NSTimeInterval time){
         UI_swizzleButtonIfNeed(object_getClass(self));
         objc_setAssociatedObject(self, ButtonRuntimeLimitTapSpaceTimes, @(time), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         return self;
     };
 }
-- (void)cancelRecordTime{
+- (void)tfy_cancelRecordTime{
     if (!objc_getAssociatedObject(self, ButtonRuntimeLimitTapLastTimes)) return;
     objc_setAssociatedObject(self, ButtonRuntimeLimitTapLastTimes, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -512,43 +523,41 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
     return [UIColor colorWithRed:((float)r / 255.0f) green:((float)g / 255.0f) blue:((float)b / 255.0f) alpha:alpha];
 }
 
-- (void)setTime:(NSInteger)time{
-    objc_setAssociatedObject(self, @selector(time), @(time), OBJC_ASSOCIATION_ASSIGN);
+- (void)setTfy_time:(NSInteger)tfy_time{
+    objc_setAssociatedObject(self, @selector(tfy_time), @(tfy_time), OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (NSInteger)time{
+- (NSInteger)tfy_time{
     
     return  [objc_getAssociatedObject(self, _cmd) integerValue];
 }
 
-- (void)setFormat:(NSString *)format{
+- (void)setTfy_format:(NSString *)tfy_format{
     
-    objc_setAssociatedObject(self, @selector(format), format, OBJC_ASSOCIATION_COPY);
+    objc_setAssociatedObject(self, @selector(tfy_format), tfy_format, OBJC_ASSOCIATION_COPY);
 }
 
-- (NSString *)format{
+- (NSString *)tfy_format{
     
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setUserTime:(NSInteger)userTime{
+- (void)setTfy_userTime:(NSInteger)tfy_userTime{
     
-    objc_setAssociatedObject(self, @selector(userTime), @(userTime), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(tfy_userTime), @(tfy_userTime), OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (NSInteger)userTime{
+- (NSInteger)tfy_userTime{
     
     return  [objc_getAssociatedObject(self, _cmd) integerValue];
 }
 
-- (void)setTimer:(dispatch_source_t)timer{
-    
-    objc_setAssociatedObject(self, @selector(timer), timer, OBJC_ASSOCIATION_RETAIN);
+- (void)setTfy_timer:(dispatch_source_t)tfy_timer {
+    objc_setAssociatedObject(self, &@selector(tfy_timer), tfy_timer, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (dispatch_source_t)timer{
-    
-    return objc_getAssociatedObject(self, _cmd);
+- (dispatch_source_t)tfy_timer{
+    return objc_getAssociatedObject(self, &@selector(tfy_timer));
 }
 
 - (void)setCompleteBlock:(void (^)(void))CompleteBlock{
@@ -558,57 +567,58 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 -(void (^)(void))CompleteBlock{
     return objc_getAssociatedObject(self, _cmd);
 }
-- (void)startTimer
+
+- (void)tfy_startTimer
 {
-    if (!self.time) {
-        self.time = TimeInterval;
+    if (!self.tfy_time) {
+        self.tfy_time = TimeInterval;
     }
-    if (!self.format) {
-        self.format = ButtonTitleFormat;
+    if (!self.tfy_format) {
+        self.tfy_format = ButtonTitleFormat;
     }
     dispatch_queue_t globalQueue = dispatch_get_global_queue(0, 0);
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, globalQueue);
-    dispatch_source_set_timer(self.timer, DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
-    dispatch_source_set_event_handler(self.timer, ^{
-        if (self.time <= 1) {
-            dispatch_source_cancel(self.timer);
+    self.tfy_timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, globalQueue);
+    dispatch_source_set_timer(self.tfy_timer, DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(self.tfy_timer, ^{
+        if (self.tfy_time <= 1) {
+            dispatch_source_cancel(self.tfy_timer);
         }else
         {
-            self.time --;
+            self.tfy_time --;
             dispatch_async(mainQueue, ^{
                 self.enabled = NO;
-                [self setTitle:[NSString stringWithFormat:self.format,self.time] forState:UIControlStateNormal];
+                [self setTitle:[NSString stringWithFormat:self.tfy_format,self.tfy_time] forState:UIControlStateNormal];
             });
         }
     });
-    dispatch_source_set_cancel_handler(self.timer, ^{
+    dispatch_source_set_cancel_handler(self.tfy_timer, ^{
         dispatch_async(mainQueue, ^{
             self.enabled = YES;
             [self setTitle:RetainTitle forState:UIControlStateNormal];
             if (self.CompleteBlock) {
                 self.CompleteBlock();
             }
-            if (self.userTime) {
-                self.time = self.userTime;
+            if (self.tfy_userTime) {
+                self.tfy_time = self.tfy_userTime;
             }else
             {
-                self.time = TimeInterval;
+                self.tfy_time = TimeInterval;
             }
         });
     });
-    dispatch_resume(self.timer);
+    dispatch_resume(self.tfy_timer);
 }
 
-- (void)endTimer{
+- (void)tfy_endTimer{
     
-    dispatch_source_cancel(self.timer);
+    dispatch_source_cancel(self.tfy_timer);
 }
 
 /**
  *  动画启动
  */
-- (void)show{
+- (void)tfy_show{
     if (!self.hidden) return;
     
     self.hidden = NO;
@@ -629,14 +639,14 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 /**
  *  动画结束
  */
-- (void)hide {
+- (void)tfy_hide {
     self.hidden = YES;
 }
 
 /**
  *  绑定button
  **/
--(void)BindingBtnactionBlock:(ActionBlock)actionBlock{
+-(void)tfy_BindingBtnactionBlock:(ActionBlock)actionBlock{
     [self addTarget:nil action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
     objc_setAssociatedObject (self , &keyOfMethod_btn, actionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -661,7 +671,7 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
  *  backgroundColor :背景色 如果颜色不变就为nil
  **/
 
--(void)stopLoading:(NSString*)title textColor:(UIColor*)textColor backgroundColor:(UIColor*)backColor{
+-(void)tfy_stopLoading:(NSString*)title textColor:(UIColor*)textColor backgroundColor:(UIColor*)backColor{
     
     if (textColor) {
         [self setTitleColor:textColor forState:UIControlStateNormal];
@@ -679,21 +689,18 @@ static NSString *keyOfMethod_btn; //关联者的索引key-用于获取block
 }
 
 
--(void)setStartColorOne:(UIColor *)startColorOne{
-    
-    _startColorOne = startColorOne;
+-(void)setTfy_startColorOne:(UIColor *)tfy_startColorOne{
+    _startColorOne = tfy_startColorOne;
 }
--(void)setStartColorTwo:(UIColor *)startColorTwo{
-    
-    _startColorTwo = startColorTwo;
+-(void)setTfy_startColorTwo:(UIColor *)tfy_startColorTwo{
+    _startColorTwo = tfy_startColorTwo;
 }
 
--(void)setLineWidths:(NSInteger)lineWidths{
-    _lineWidths = lineWidths;
+-(void)setTfy_lineWidths:(NSInteger)tfy_lineWidths{
+    _lineWidths = tfy_lineWidths;
 }
--(void)setTopHeight:(NSInteger)topHeight{
-    
-    _topHeight = topHeight;
+-(void)setTfy_topHeight:(NSInteger)tfy_topHeight{
+    _topHeight = tfy_topHeight;
 }
 
 -(void)creatLayerWithStartLoadingButton{
