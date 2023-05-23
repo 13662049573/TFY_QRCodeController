@@ -40,6 +40,7 @@
 @property (nonatomic, strong) UIButton *scanTypeBarBtn; //修改扫码类型按钮
 @property (nonatomic, copy) void (^scanFinish)(NSString *, NSError *);
 @property (nonatomic, assign) TFY_ScanType scanType;
+@property(nonatomic)dispatch_queue_t sessionQueue;
 /**
  *  扫码区域下方提示文字
  */
@@ -69,8 +70,8 @@
     if (self) {
         self.scanType = type;
         self.scanFinish = finish;
+        [self createQueue];
     }
-    
     return self;
 }
 
@@ -167,15 +168,39 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //开始捕获
-    if (self.session) [self.session startRunning];
+    [self sessionStartRunning];
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    //开始捕获
-    if (self.session) [self.session stopRunning];
+    [self sessionStopRunning];
+}
+
+/**
+ *  创建一个队列,防止阻塞主线程
+ */
+- (void)createQueue {
+    dispatch_queue_t sessionQueue = dispatch_queue_create("xxx session queue", DISPATCH_QUEUE_SERIAL);
+    self.sessionQueue = sessionQueue;
+}
+
+-(void)sessionStartRunning {
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(self.sessionQueue, ^{
+        if (!weakSelf.session.running) {
+            [weakSelf.session startRunning];
+        }
+    });
+}
+
+-(void)sessionStopRunning{
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(self.sessionQueue, ^{
+        if (weakSelf.session.running) {
+            [weakSelf.session stopRunning];
+        }
+    });
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
@@ -203,7 +228,6 @@
         }
     }
 }
-
 
 //绘制扫描区域
 - (void)drawScanView {
